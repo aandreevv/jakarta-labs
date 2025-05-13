@@ -12,6 +12,11 @@
 <div class="container">
   <h1>Menu</h1>
 
+  <form method="get" action="${pageContext.request.contextPath}/menu/${menuId}">
+    <input type="text" name="searchName" placeholder="Search by name" value="${param.searchName}" />
+    <button type="submit">Search</button>
+  </form>
+
   <table>
     <thead>
     <tr>
@@ -52,12 +57,12 @@
     </tbody>
   </table>
 
-  <c:if test="${not empty sessionScope.cart}">
+<%--  <c:if test="${not empty sessionScope.cart}">--%>
     <form method="post" action="${pageContext.request.contextPath}/submit-order">
       <input type="hidden" name="menuId" value="${menuId}" />
       <button type="submit" class="btn-create-order">Create Order</button>
     </form>
-  </c:if>
+<%--  </c:if>--%>
 
 
   <a class="btn-link" href="${pageContext.request.contextPath}/">Back to Home</a>

@@ -16,6 +16,8 @@ public class Order {
 
     private boolean processed;
 
+    public Order() {}
+
     public int getId() {
         return id;
     }
@@ -37,6 +39,11 @@ public class Order {
     }
 
     public void setProcessed(boolean processed) {
+        this.processed = processed;
+    }
+
+    public Order(List<OrderItem> items, boolean processed) {
+        this.items = items;
         this.processed = processed;
     }
 }

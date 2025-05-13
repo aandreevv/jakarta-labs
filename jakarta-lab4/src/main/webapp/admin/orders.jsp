@@ -41,9 +41,9 @@
             <tbody>
             <c:forEach var="item" items="${order.items}">
               <tr>
-                <td><c:out value="${item.name}" /></td>
-                <td><c:out value="${item.description}" /></td>
-                <td><c:out value="${item.price}" /></td>
+                <td><c:out value="${item.menuItem.name}" /></td>
+                <td><c:out value="${item.menuItem.description}" /></td>
+                <td><c:out value="${item.menuItem.price}" /></td>
               </tr>
             </c:forEach>
             </tbody>

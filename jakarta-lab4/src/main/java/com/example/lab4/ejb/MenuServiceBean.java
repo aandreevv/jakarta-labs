@@ -6,10 +6,11 @@ import com.example.lab4.entity.MenuItem;
 import com.example.lab4.service.MenuService;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
+import jakarta.ejb.TransactionAttribute;
+import jakarta.ejb.TransactionAttributeType;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Stateless
 public class MenuServiceBean implements MenuService {
@@ -38,12 +39,17 @@ public class MenuServiceBean implements MenuService {
     }
 
     @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void addItemToMenu(Menu menu, MenuItem menuItem) {
-        daoFactory.getMenuDao().addToMenu(menu, menuItem);
+        menuItem.setMenu(menu);
+        menu.getItems().add(menuItem);
+        daoFactory.getMenuDao().update(menu);
     }
 
     @Override
     public void removeItemFromMenu(Menu menu, MenuItem menuItem) {
-        daoFactory.getMenuDao().removeFromMenu(menu, menuItem);
+        menu.getItems().remove(menuItem);
+        menuItem.setMenu(null);
+        daoFactory.getMenuDao().update(menu);
     }
 }

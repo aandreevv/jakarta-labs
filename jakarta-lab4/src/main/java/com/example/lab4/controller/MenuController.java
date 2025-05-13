@@ -1,6 +1,8 @@
 package com.example.lab4.controller;
 
-import com.example.lab4.model.MenuItem;
+import com.example.lab4.entity.Menu;
+import com.example.lab4.entity.MenuItem;
+import com.example.lab4.service.MenuItemService;
 import com.example.lab4.service.MenuService;
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
@@ -8,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/menu/*")
@@ -15,18 +18,32 @@ public class MenuController extends HttpServlet {
     @EJB
     private MenuService menuService;
 
+    @EJB
+    private MenuItemService menuItemService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String pathInfo = req.getPathInfo();
-        if (pathInfo == null || pathInfo.equals("/")) {
+        int menuId = Integer.parseInt(pathInfo.substring(1));
+        String searchName = req.getParameter("searchName");
+        if (pathInfo.equals("/")) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Menu ID is missing.");
             return;
         }
 
         try {
-            int menuId = Integer.parseInt(pathInfo.substring(1));
-            List<MenuItem> menuItems = menuService.findById(menuId).getItems();
-            req.setAttribute("menuItems", menuItems);
+            Menu menu = menuService.findById(menuId);
+            if (menu == null) {
+                req.setAttribute("menuItems", new ArrayList<>() );
+            } else {
+                List<MenuItem> menuItems;
+                if (searchName != null && !searchName.trim().isEmpty()) {
+                    menuItems = menuItemService.findByName(searchName, menu);
+                } else {
+                    menuItems = menu.getItems();
+                }
+                req.setAttribute("menuItems", menuItems);
+            }
             req.setAttribute("menuId", menuId);
 
             HttpSession session = req.getSession();

@@ -2,6 +2,7 @@ package com.example.lab4.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -11,14 +12,20 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MenuItem> items;
 
-    public Menu() {}
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    public Menu() {
+        this.createdAt = LocalDateTime.now();
+    }
 
     public Menu(int id, List<MenuItem> items) {
         this.id = id;
         this.items = items;
+        this.createdAt = LocalDateTime.now();
     }
 
     public int getId() {
@@ -35,5 +42,13 @@ public class Menu {
 
     public void setItems(List<MenuItem> items) {
         this.items = items;
+    }
+
+    public Menu(List<MenuItem> items) {
+        this.items = items;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 }

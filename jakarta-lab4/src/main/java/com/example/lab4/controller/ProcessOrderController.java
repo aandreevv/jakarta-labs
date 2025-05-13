@@ -1,6 +1,6 @@
 package com.example.lab4.controller;
 
-import com.example.lab4.model.Order;
+import com.example.lab4.entity.Order;
 import com.example.lab4.service.OrderService;
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;

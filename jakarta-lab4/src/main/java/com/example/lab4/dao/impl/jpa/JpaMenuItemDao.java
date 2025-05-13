@@ -9,7 +9,7 @@ import java.util.List;
 
 @Stateless
 public class JpaMenuItemDao extends JpaAbstractDao<MenuItem> implements MenuItemDao {
-    JpaMenuItemDao() {
+    public JpaMenuItemDao() {
         super(MenuItem.class);
     }
 

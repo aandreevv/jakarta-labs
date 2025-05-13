@@ -6,7 +6,7 @@ import jakarta.ejb.Stateless;
 
 @Stateless
 public class JpaOrderDao extends JpaAbstractDao<Order> implements OrderDao {
-    JpaOrderDao() {
+    public JpaOrderDao() {
         super(Order.class);
     }
 }

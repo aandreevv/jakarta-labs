@@ -42,4 +42,9 @@ public class OrderItem {
     public void setOrder(Order order) {
         this.order = order;
     }
+
+    public OrderItem(MenuItem menuItem, Order order) {
+        this.menuItem = menuItem;
+        this.order = order;
+    }
 }

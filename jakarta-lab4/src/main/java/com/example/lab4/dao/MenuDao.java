@@ -1,6 +1,7 @@
 package com.example.lab4.dao;
 
 import com.example.lab4.entity.Menu;
-import com.example.lab4.entity.MenuItem;
+import jakarta.ejb.Local;
 
+@Local
 public interface MenuDao extends AbstractDao<Menu> { }

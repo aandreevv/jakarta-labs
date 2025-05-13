@@ -2,9 +2,12 @@ package com.example.lab4.ejb;
 
 import com.example.lab4.dao.DaoFactory;
 import com.example.lab4.entity.Order;
+import com.example.lab4.entity.OrderItem;
 import com.example.lab4.service.OrderService;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
+import jakarta.ejb.TransactionAttribute;
+import jakarta.ejb.TransactionAttributeType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +28,19 @@ public class OrderServiceBean implements OrderService {
     }
 
     @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void create(Order order) {
-        daoFactory.getOrderDao().create(order);
+        try {
+            for (OrderItem item : order.getItems()) {
+                item.setOrder(order);
+            }
+            daoFactory.getOrderDao().create(order);
+            if (order.getItems().isEmpty()) {
+                throw new RuntimeException("Cannot create order without items. Rolling back transaction.");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Order Transaction failed", e);
+        }
     }
 
     @Override

@@ -7,6 +7,7 @@ import jakarta.persistence.PersistenceContext;
 
 import java.util.Collection;
 
+@Stateless
 public abstract class JpaAbstractDao<T> implements AbstractDao<T> {
     @PersistenceContext
     protected EntityManager em;
@@ -36,6 +37,7 @@ public abstract class JpaAbstractDao<T> implements AbstractDao<T> {
     @Override
     public void create(T entity) {
         em.persist(entity);
+        em.flush();
     }
 
     @Override

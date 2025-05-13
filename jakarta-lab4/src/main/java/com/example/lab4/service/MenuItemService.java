@@ -12,7 +12,7 @@ public interface MenuItemService {
     MenuItem findById(int id);
     List<MenuItem> findByName(String name);
     List<MenuItem> findByName(String name, Menu menu);
-    void create(MenuItem order);
-    void edit(MenuItem order);
+    void create(MenuItem menuItem);
+    void edit(MenuItem menuItem);
     void delete(int id);
 }

@@ -2,6 +2,8 @@ package com.example.lab4.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "menu_items")
 public class MenuItem {
@@ -66,6 +68,25 @@ public class MenuItem {
     }
 
     public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        MenuItem menuItem = (MenuItem) o;
+        return id == menuItem.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
+    public MenuItem(String name, String description, double price, Menu menu) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
         this.menu = menu;
     }
 }

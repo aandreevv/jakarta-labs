@@ -1,6 +1,6 @@
 package com.example.lab4.controller;
 
-import com.example.lab4.model.MenuItem;
+import com.example.lab4.entity.MenuItem;
 import com.example.lab4.service.MenuItemService;
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;

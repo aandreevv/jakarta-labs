@@ -1,7 +1,7 @@
 package com.example.lab4.controller;
 
-import com.example.lab4.model.Menu;
-import com.example.lab4.model.MenuItem;
+import com.example.lab4.entity.Menu;
+import com.example.lab4.entity.MenuItem;
 import com.example.lab4.service.MenuItemService;
 import com.example.lab4.service.MenuService;
 import jakarta.ejb.EJB;
@@ -10,7 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
 
 @WebServlet("/admin/menu/*")
 public class ManageMenuController extends HttpServlet {
@@ -30,8 +30,12 @@ public class ManageMenuController extends HttpServlet {
 
         try {
             int menuId = Integer.parseInt(pathInfo.substring(1));
-            List<MenuItem> items = menuService.findById(1).getItems();
-            req.setAttribute("menuItems", items);
+            Menu menu = menuService.findById(menuId);
+            if (menu == null) {
+                req.setAttribute("menuItems", new ArrayList<>() );
+            } else {
+                req.setAttribute("menuItems", menu.getItems());
+            }
             req.setAttribute("menuId", menuId);
             req.getRequestDispatcher("/admin/manageMenu.jsp").forward(req, resp);
         } catch (NumberFormatException e) {
@@ -55,8 +59,11 @@ public class ManageMenuController extends HttpServlet {
                 if (name != null && description != null && priceParam != null) {
                     try {
                         double price = Double.parseDouble(priceParam);
-                        MenuItem newItem = new MenuItem(0, name, description, price);
-                        menuItemService.create(newItem);
+                        MenuItem newItem = new MenuItem();
+                        newItem.setName(name);
+                        newItem.setDescription(description);
+                        newItem.setPrice(price);
+                        newItem.setMenu(menu);
                         menuService.addItemToMenu(menu, newItem);
                         resp.sendRedirect(req.getContextPath() + "/admin/menu/" + menuIdParam);
                     } catch (NumberFormatException e) {

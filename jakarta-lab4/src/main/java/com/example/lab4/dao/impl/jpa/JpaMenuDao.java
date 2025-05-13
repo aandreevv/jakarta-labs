@@ -6,7 +6,7 @@ import jakarta.ejb.Stateless;
 
 @Stateless
 public class JpaMenuDao extends JpaAbstractDao<Menu> implements MenuDao {
-    JpaMenuDao() {
+    public JpaMenuDao() {
         super(Menu.class);
     }
 }

@@ -4,6 +4,7 @@ import com.example.lab4.dao.DaoFactory;
 import com.example.lab4.dao.MenuDao;
 import com.example.lab4.dao.MenuItemDao;
 import com.example.lab4.dao.OrderDao;
+import com.example.lab4.data.JpaDataSeeder;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
 

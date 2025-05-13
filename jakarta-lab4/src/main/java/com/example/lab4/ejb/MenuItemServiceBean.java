@@ -36,13 +36,13 @@ public class MenuItemServiceBean implements MenuItemService {
     }
 
     @Override
-    public void create(MenuItem order) {
-        daoFactory.getMenuItemDao().create(order);
+    public void create(MenuItem menuItem) {
+        daoFactory.getMenuItemDao().create(menuItem);
     }
 
     @Override
-    public void edit(MenuItem order) {
-        daoFactory.getMenuItemDao().update(order);
+    public void edit(MenuItem menuItem) {
+        daoFactory.getMenuItemDao().update(menuItem);
     }
 
     @Override
