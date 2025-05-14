@@ -10,6 +10,7 @@ import java.util.List;
 public interface MenuService {
     void create(Menu menu);
     void delete(int id);
+    void edit(Menu menu);
     List<Menu> findAll();
     Menu findById(int id);
     void addItemToMenu(Menu menu, MenuItem menuItem);

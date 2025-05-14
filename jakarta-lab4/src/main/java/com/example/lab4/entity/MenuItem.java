@@ -1,6 +1,8 @@
 package com.example.lab4.entity;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 
 import java.util.Objects;
 
@@ -11,14 +13,19 @@ public class MenuItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String description;
 
+    @Column(nullable = false)
+    @Min(0)
     private double price;
 
     @ManyToOne
     @JoinColumn(name = "menu_id")
+    @JsonbTransient
     private Menu menu;
 
     public MenuItem() {}

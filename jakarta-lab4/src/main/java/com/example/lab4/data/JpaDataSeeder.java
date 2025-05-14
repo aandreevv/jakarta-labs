@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Singleton
-@Startup
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
+//@Singleton
+//@Startup
+//@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class JpaDataSeeder implements DataSeeder {
     @PersistenceContext(unitName = "foodPU")
     private EntityManager em;
@@ -30,6 +30,8 @@ public class JpaDataSeeder implements DataSeeder {
         }
 
         Menu menu = new Menu();
+        menu.setName("Main Menu");
+        em.persist(menu);
 
         List<MenuItem> menuItems = new ArrayList<>(Arrays.asList(
                 new MenuItem("Margherita Pizza", "Classic pizza with tomato sauce and mozzarella", 8.99, menu),
@@ -44,11 +46,10 @@ public class JpaDataSeeder implements DataSeeder {
                 new MenuItem("Chocolate Cake", "Rich chocolate cake with ganache", 6.49, menu)
         ));
 
-        menu.setItems(menuItems);
+
         for (MenuItem menuItem : menuItems) {
             em.persist(menuItem);
         }
-        em.persist(menu);
 
         menu.setItems(menuItems);
 

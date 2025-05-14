@@ -12,6 +12,8 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String name = "Default Menu";
+
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MenuItem> items;
 
@@ -22,8 +24,9 @@ public class Menu {
         this.createdAt = LocalDateTime.now();
     }
 
-    public Menu(int id, List<MenuItem> items) {
+    public Menu(int id, String name, List<MenuItem> items) {
         this.id = id;
+        this.name = name;
         this.items = items;
         this.createdAt = LocalDateTime.now();
     }
@@ -50,5 +53,13 @@ public class Menu {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -25,7 +25,12 @@ public class MenuServiceBean implements MenuService {
     @Override
     public void delete(int id) {
         Menu menu = daoFactory.getMenuDao().get(id);
-        if (menu != null) daoFactory.getMenuDao().delete(menu);
+        daoFactory.getMenuDao().delete(menu);
+    }
+
+    @Override
+    public void edit(Menu menu) {
+        daoFactory.getMenuDao().update(menu);
     }
 
     @Override

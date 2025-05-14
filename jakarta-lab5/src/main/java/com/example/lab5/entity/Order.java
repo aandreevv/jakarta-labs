@@ -14,7 +14,7 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> items;
 
-    private boolean processed;
+    private boolean processed = false;
 
     public Order() {}
 
